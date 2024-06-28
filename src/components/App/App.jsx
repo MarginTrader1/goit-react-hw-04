@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+
 import ImageGallery from "../ImageGallery/ImageGallery";
 import SearchBar from "../SearchBar/SearchBar";
 
-const ACCESS_KEY = "UPw8NjS-huZ4VlBDIIM1Zji-EyFBB8DnsTXGq8PbDP8";
+import { fetchData } from "../../api.js";
 
 const App = () => {
   const [photos, setPhotos] = useState([]); // фотографии
   const [loading, setLoading] = useState(false); //статус загрузки
+  const [error, setError] = useState(false); //стейт для ошибки
   const [searchData, setSearchData] = useState(""); // поиск фото
 
   useEffect(() => {
@@ -15,16 +16,11 @@ const App = () => {
       try {
         setLoading(true); // делаем статус true для отображение загрузки перед запросом
 
-        //запрос на сервер
-        const response = await axios.get(
-          `https://api.unsplash.com/photos/?client_id=${ACCESS_KEY}`
-        );
-
-        const photos = response.data; //фотки
+        const photos = await fetchData(); //запрос на сервер
 
         setPhotos(photos); //меняем стейт
       } catch (error) {
-        console.log(error); 
+        setError(true); //меняем стан ошибки на true
       } finally {
         setLoading(false); //после запроса снова меняем статус загрузки на false
       }
@@ -36,6 +32,9 @@ const App = () => {
   return (
     <div>
       <SearchBar />
+      {error && (
+        <p>Whoops, something went wrong! Please try reloading this page!</p>
+      )}
       {loading && <p>Loading data, please wait...</p>}
       {photos.length > 0 && <ImageGallery photos={photos} />}
     </div>
