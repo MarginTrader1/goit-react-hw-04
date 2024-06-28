@@ -9,8 +9,7 @@ const App = () => {
   const [photos, setPhotos] = useState([]); // фотографии
   const [loading, setLoading] = useState(false); //статус загрузки
   const [error, setError] = useState(false); //стейт для ошибки
-  const [searchData, setSearchData] = useState(""); // поиск фото
-
+  
   useEffect(() => {
     const fetchPhotos = async () => {
       try {
