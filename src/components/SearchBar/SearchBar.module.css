@@ -1,0 +1,17 @@
+.bar {
+  margin-left: auto;
+  margin-right: auto;
+  
+  > form {
+    display: flex;
+    gap: 20px;
+    > button {
+      min-width: 100px;
+      height: 25px;
+      border-radius: 8px;
+      background-color: #3f51b51a;
+      cursor: pointer;
+      text-transform: capitalize;
+    }
+  }
+}
