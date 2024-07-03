@@ -1,7 +1,6 @@
 import css from "./SearchBar.module.css";
 
 const SearchBar = ({ searchPhotos }) => {
-
   // функция для сабмита
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -25,7 +24,8 @@ const SearchBar = ({ searchPhotos }) => {
           name="search"
           autoComplete="off"
           autoFocus
-          placeholder="Search images and photos"
+          placeholder="Search photos"
+          className={css.input}
         />
         <button type="submit">Search</button>
       </form>
@@ -34,6 +34,3 @@ const SearchBar = ({ searchPhotos }) => {
 };
 
 export default SearchBar;
-
-// const input = document.getElementsByTagName("input"); //доступ к инпуту
-// searchPhotos(input[0].value); //значение инпута

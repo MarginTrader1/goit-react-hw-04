@@ -14,6 +14,7 @@ const App = () => {
   const [error, setError] = useState(false); //стейт для ошибки
   const [page, setPage] = useState(1); //стейт для пагинации
   const [topic, setTopic] = useState(""); //стейт для поискового запроса
+  const [totalPhoto, setTotalPhoto] = useState(0); //стейт для количества фото
 
   // функция для пагинации
   const loadMore = () => {
@@ -22,6 +23,7 @@ const App = () => {
 
   // поиск по запросу
   const searchPhotos = (value) => {
+    setPhotos([]); // сбрасываем стейт при новом поиске
     setTopic(value);
   };
 
@@ -32,11 +34,13 @@ const App = () => {
       }
 
       try {
-        setPhotos([]); // сбрасываем стейт при новом поиске
         setLoading(true); // делаем статус true для отображение загрузки перед запросом
         setError(false); // сброс ошибки на false
-        const newPhotos = await fetchData(topic, page); //запрос на сервер
-        setPhotos(() => newPhotos); //меняем стейт после получения данных
+        const { results, total } = await fetchData(topic, page); //запрос на сервер
+        setTotalPhoto(total); // ставим общее количество фоток
+        setPhotos((prevState) => {
+          return [...prevState, ...results]; // меняем стейт после получения данных
+        });
       } catch (error) {
         setError(true); //меняем стан ошибки на true
       } finally {
@@ -55,21 +59,11 @@ const App = () => {
       )}
       {loading && <Loader />}
       {photos.length > 0 && <ImageGallery photos={photos} />}
-      {photos.length > 0 && <LoadMoreBtn loadMore={loadMore} />}
+      {photos.length > 0 && photos.length !== totalPhoto && (
+        <LoadMoreBtn loadMore={loadMore} />
+      )}
     </div>
   );
 };
 
 export default App;
-
-// try {
-//   setPhotos([]); // сбрасываем стейт при новом поиске
-//   setLoading(true); // делаем статус true для отображение загрузки перед запросом
-//   setError(false); // сброс ошибки на false
-//   const newPhotos = await fetchData(topic); //запрос на сервер
-//   setPhotos(() => newPhotos); //меняем стейт после получения данных
-// } catch (error) {
-//   setError(true); //меняем стан ошибки на true
-// } finally {
-//   setLoading(false); //после запроса снова меняем статус загрузки на false
-// }
