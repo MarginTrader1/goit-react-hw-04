@@ -25,14 +25,14 @@ const App = () => {
 
   // поиск по запросу
   const searchPhotos = (value) => {
-    setPhotos([]); // сбрасываем стейт при новом поиске
+    setPhotos([]);
     setTopic(value);
   };
 
   useEffect(() => {
     const fetchPhotos = async () => {
       if (topic === "") {
-        return; // ранний возврат если топик пустой
+        return; // ранний возврат если топик пустой, нужен при первой загрузке страницы
       }
 
       try {
