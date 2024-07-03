@@ -11,32 +11,39 @@ const App = () => {
   const [photos, setPhotos] = useState([]); // фотографии
   const [loading, setLoading] = useState(false); //статус загрузки
   const [error, setError] = useState(false); //стейт для ошибки
-  const [searchWord, setSearchWord] = useState(""); //стейт для поиска слова
 
-  const searchPhotos = (newPhotos) => {
-    setSearchWord(newPhotos);
+  // поиск по запросу 
+  const searchPhotos = async (topic) => {
+    try {
+      setPhotos([]); // сбрасываем стейт при новом поиске
+      setLoading(true); // делаем статус true для отображение загрузки перед запросом
+      setError(false); // сброс ошибки на false
+      const newPhotos = await fetchData(topic); //запрос на сервер
+      setPhotos(() => newPhotos); //меняем стейт после получения данных
+    } catch (error) {
+      setError(true); //меняем стан ошибки на true
+    } finally {
+      setLoading(false); //после запроса снова меняем статус загрузки на false
+    }
   };
 
-  useEffect(() => {
-    const fetchPhotos = async () => {
-      try {
-        if (photos.length === 0) {
-          return;
-        }
-        setLoading(true); // делаем статус true для отображение загрузки перед запросом
+  // useEffect(() => {
+  //   const fetchPhotos = async () => {
+  //     try {
+  //       setLoading(true); // делаем статус true для отображение загрузки перед запросом
 
-        const photos = await fetchData(searchWord); //запрос на сервер
+  //       const newPhotos = await fetchData(); //запрос на сервер
 
-        setPhotos(() => photos); //меняем стейт
-      } catch (error) {
-        setError(true); //меняем стан ошибки на true
-      } finally {
-        setLoading(false); //после запроса снова меняем статус загрузки на false
-      }
-    };
+  //       setPhotos(() => newPhotos); //меняем стейт
+  //     } catch (error) {
+  //       setError(true); //меняем стан ошибки на true
+  //     } finally {
+  //       setLoading(false); //после запроса снова меняем статус загрузки на false
+  //     }
+  //   };
 
-    fetchPhotos(); //паттерн запроса на сервер для useEffect
-  }, [searchWord]);
+  //   fetchPhotos(); //паттерн запроса на сервер для useEffect
+  // }, []);
 
   return (
     <div className={css.container}>
