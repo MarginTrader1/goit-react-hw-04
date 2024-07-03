@@ -5,6 +5,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import Loader from "../Loader/Loader.jsx";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn.jsx";
 import ErrorMesage from "../ErrorMessage/ErrorMessage.jsx";
+import NoPhoto from "../NoPhoto/NoPhoto.jsx";
 
 import { fetchData } from "../../api.js";
 import css from "./App.module.css";
@@ -56,6 +57,7 @@ const App = () => {
     <div className={css.container}>
       <SearchBar searchPhotos={searchPhotos} />
       {error && <ErrorMesage />}
+      {photos.length === 0 && topic !== "" && !error && <NoPhoto />}
       {loading && <Loader />}
       {photos.length > 0 && <ImageGallery photos={photos} />}
       {photos.length > 0 && photos.length !== totalPhoto && (
