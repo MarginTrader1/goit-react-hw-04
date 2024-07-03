@@ -4,6 +4,7 @@ import ImageGallery from "../ImageGallery/ImageGallery";
 import SearchBar from "../SearchBar/SearchBar";
 import Loader from "../Loader/Loader.jsx";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn.jsx";
+import ErrorMesage from "../ErrorMessage/ErrorMessage.jsx";
 
 import { fetchData } from "../../api.js";
 import css from "./App.module.css";
@@ -54,9 +55,7 @@ const App = () => {
   return (
     <div className={css.container}>
       <SearchBar searchPhotos={searchPhotos} />
-      {error && (
-        <p>Whoops, something went wrong! Please try reloading this page!</p>
-      )}
+      {error && <ErrorMesage />}
       {loading && <Loader />}
       {photos.length > 0 && <ImageGallery photos={photos} />}
       {photos.length > 0 && photos.length !== totalPhoto && (
