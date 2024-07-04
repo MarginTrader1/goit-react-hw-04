@@ -25,7 +25,7 @@ const App = () => {
   function openModal(value) {
     setIsOpen(true);
 
-    const photo = photos.filter((item) => item.id.includes(value)); //объект с фотокой
+    const photo = photos.filter((item) => item.id.includes(value)); //объект с фоткой
     const { regular } = photo[0].urls; // ссылка на фото для модалки
     setModalPhoto(regular); 
   }
