@@ -21,10 +21,11 @@ const App = () => {
   const [modalIsOpen, setIsOpen] = useState(false); //стейт для модалки
   const [modalPhoto, setModalPhoto] = useState(""); //cтейт для фото модалки
 
+  // фнукции для модалки
   function openModal(value) {
     setIsOpen(true);
 
-    const photo = photos.filter((item) => item.id.includes(value)); 
+    const photo = photos.filter((item) => item.id.includes(value)); //объект с фотокой
     const { regular } = photo[0].urls; // ссылка на фото для модалки
     setModalPhoto(regular); 
   }
@@ -38,7 +39,7 @@ const App = () => {
     setPage((prevPage) => prevPage + 1);
   };
 
-  // поиск по запросу
+  // функция поиск по запросу
   const searchPhotos = (value) => {
     setPhotos([]);
     setTopic(value);
