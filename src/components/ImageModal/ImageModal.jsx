@@ -1,17 +1,6 @@
 import Modal from "react-modal";
 
-// import css from "./ImageModal.css";
-
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-};
+import css from "./ImageModal.module.css";
 
 const ImageModal = ({ modalIsOpen, closeModal, photo }) => {
   return (
@@ -20,10 +9,11 @@ const ImageModal = ({ modalIsOpen, closeModal, photo }) => {
         ariaHideApp={false}
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        style={customStyles}
+        className={css.modal}
+        overlayClassName={css.overlay}
       >
-        <div>
-          <img src={`${photo}`} alt={`modal photo`} />
+        <div className={css.card}>
+          <img className={css.photo} src={`${photo}`} alt={`modal photo`} />
         </div>
       </Modal>
     </div>

@@ -27,7 +27,7 @@ const SearchBar = ({ searchPhotos }) => {
           placeholder="Search photos"
           className={css.input}
         />
-        <button type="submit">Search</button>
+        <button type="submit" className={css.button}>Search</button>
       </form>
     </header>
   );
