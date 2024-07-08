@@ -98,7 +98,6 @@ const App = () => {
          {photos.length > 0 && photos.length !== totalPhoto && <LoadMoreBtn loadMore={loadMore} />}
          <ImageModal
             modalIsOpen={modalIsOpen}
-            openModal={openModal}
             closeModal={closeModal}
             photo={modalPhoto}
          />
